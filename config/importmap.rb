@@ -8,4 +8,3 @@ pin_all_from "app/javascript/controllers", under: "controllers"
 
 # Add fontawesome icons:
 pin "@fortawesome/fontawesome-free", to: "https://ga.jspm.io/npm:@fortawesome/fontawesome-free@6.1.1/js/all.js", preload: true
-
