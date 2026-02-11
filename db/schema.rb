@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_02_10_233527) do
+ActiveRecord::Schema[8.0].define(version: 2026_02_10_235233) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -23,6 +23,21 @@ ActiveRecord::Schema[8.0].define(version: 2026_02_10_233527) do
     t.index ["contactable_type", "contactable_id"], name: "index_contacts_on_contactable"
     t.index ["user_id", "contactable_id", "contactable_type"], name: "index_contacts_on_user_and_contactable", unique: true
     t.index ["user_id"], name: "index_contacts_on_user_id"
+  end
+
+  create_table "conversants", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "room_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["room_id"], name: "index_conversants_on_room_id"
+    t.index ["user_id"], name: "index_conversants_on_user_id"
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -38,4 +53,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_02_10_233527) do
   end
 
   add_foreign_key "contacts", "users"
+  add_foreign_key "conversants", "rooms"
+  add_foreign_key "conversants", "users"
 end
