@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_02_10_235233) do
+ActiveRecord::Schema[8.0].define(version: 2026_02_11_011622) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -34,6 +34,23 @@ ActiveRecord::Schema[8.0].define(version: 2026_02_10_235233) do
     t.index ["user_id"], name: "index_conversants_on_user_id"
   end
 
+  create_table "group_users", force: :cascade do |t|
+    t.bigint "group_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_group_users_on_group_id"
+    t.index ["user_id"], name: "index_group_users_on_user_id"
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "admin_id"
+    t.index ["admin_id"], name: "index_groups_on_admin_id"
+  end
+
   create_table "rooms", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -55,4 +72,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_02_10_235233) do
   add_foreign_key "contacts", "users"
   add_foreign_key "conversants", "rooms"
   add_foreign_key "conversants", "users"
+  add_foreign_key "group_users", "groups"
+  add_foreign_key "group_users", "users"
+  add_foreign_key "groups", "users", column: "admin_id"
 end

@@ -6,7 +6,7 @@ class CreateGroups < ActiveRecord::Migration[8.0]
       t.timestamps
 
       # Adding the admin reference, pointing to the users table
-      t.references :admin, foreign_key: { to_table: users }
+      t.references :admin, foreign_key: { to_table: :users }
     end
   end
 end
