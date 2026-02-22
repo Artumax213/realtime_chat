@@ -1,0 +1,11 @@
+<div id="avatar_<%= instance.id %>">
+    <% if instance.avatar.present? %>
+    <div class="w-12 h-12 flex justify-center items-center overflow-hidden rounded-full" style=" <%= gradient_from_created_at(instance.created_at) %>">
+        <%= image_tag instance.avatar, class:"w-full h-full object-cover" %>
+    </div>
+    <% else %>
+    <div class="avatar_circle" style="padding:5px; width:46px; height:46px; outline:0px;font-size: 20px; <%= gradient_from_created_at(instance.created_at) %>">
+        <%= first_letters(instance.name.to_s.upcase) %>
+    </div>
+    <% end %>
+</div>
